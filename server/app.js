@@ -33,6 +33,18 @@ SocketIo.on("connection", socket => {
                 break;
         }
     })
+    socket.on("chat_messages", (message) => {
+        socket.broadcast.emit("chat_messages", message);
+    })
+    socket.on("joined", (name) => {
+        socket.broadcast.emit("joined", name);
+    })
+    socket.on("typing", (data) => {
+        socket.broadcast.emit("typing", data);
+    })
+    socket.on('stopTyping', () => {
+        socket.broadcast.emit('stopTyping')
+    })
 });
 
 Http.listen(3000, () => {
